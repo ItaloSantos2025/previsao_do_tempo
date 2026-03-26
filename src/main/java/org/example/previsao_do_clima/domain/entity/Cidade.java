@@ -1,5 +1,6 @@
 package org.example.previsao_do_clima.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.UUID;
@@ -11,6 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Cidade {
     @Id
     @Column(columnDefinition = "CHAR(36)")

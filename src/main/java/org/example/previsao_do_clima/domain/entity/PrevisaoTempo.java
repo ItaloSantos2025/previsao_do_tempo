@@ -1,5 +1,6 @@
 package org.example.previsao_do_clima.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PrevisaoTempo {
     @Id
     @Column(columnDefinition = "CHAR(36)")
@@ -23,15 +25,14 @@ public class PrevisaoTempo {
 
     @Column(name = "data_hora_previsao")
     private LocalDateTime dataHoraPrevisao;
-    
+
     private Double temperatura;
     private Double umidade;
-    // Dentro da classe PrevisaoTempo
     private String icone;
-    
+
     @Column(name = "velocidade_vento")
     private Double velocidadeVento;
-    
+
     @Column(name = "probabilidade_chuva")
     private Double probabilidadeChuva;
 

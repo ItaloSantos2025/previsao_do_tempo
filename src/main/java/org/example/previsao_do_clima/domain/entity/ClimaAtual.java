@@ -1,5 +1,6 @@
 package org.example.previsao_do_clima.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -12,13 +13,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClimaAtual {
 
     @Id
     @Column(columnDefinition = "CHAR(36)")
     private String id;
 
-    @OneToOne // Alterado para OneToOne: cada cidade tem apenas UM registro de clima em tempo real
+    @OneToOne
     @JoinColumn(name = "cidade_id", unique = true)
     private Cidade cidade;
 
@@ -35,12 +37,12 @@ public class ClimaAtual {
     private Double velocidadeVento;
 
     @Column(name = "direcao_vento")
-    private String direcaoVento; // Alterado para String para aceitar "NE", "SW", etc., conforme o SQL
+    private String direcaoVento;
 
     @Column(name = "condicao_tempo")
     private String condicaoTempo;
 
-    private String icone; // Novo campo para o código do ícone da API (ex: 01d)
+    private String icone;
 
     @Column(name = "recomendacao_ia", columnDefinition = "TEXT")
     private String recomendacaoIa;

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import java.util.Map;
+import java.util.List;
 
 @Service
 public class AssistenteIAService {
@@ -18,41 +19,49 @@ public class AssistenteIAService {
     }
 
     public String gerarRecomendacaoSeguranca(Double temp, Double umidade, String condicao) {
-        String prompt = String.format("Atue como técnico de segurança do trabalho. Com base nos dados atuais (Temperatura: %s, Umidade: %s, Condição: %s), gere 3 recomendações curtas em português: 1. Melhor horário para trabalho externo; 2. Proteção/EPI necessário; 3. Vestimenta ideal.",
-                temp, umidade, condicao);
+        // Prompt sem caracteres especiais para teste
 
-        String geminiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + geminiApiKey;
+        String promptText = "Dados: " + temp + " graus, " + umidade + "% umidade. Gere 3 dicas curtas de seguranca do trabalho.";
 
+        // Usando o modelo que seu terminal listou como o primeiro da lista (Estável 2.5)
+        String geminiUrl = "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=" + geminiApiKey;
+
+        // JSON manual para não ter erro de hierarquia
         Map<String, Object> requestBody = Map.of(
-            "contents", java.util.List.of(
-                Map.of("parts", java.util.List.of(
-                    Map.of("text", prompt)
-                ))
-            )
+                "contents", List.of(
+                        Map.of("parts", List.of(
+                                Map.of("text", promptText)
+                        ))
+                )
         );
 
         try {
             Map<String, Object> response = webClient.post()
                     .uri(geminiUrl)
+                    .header("Content-Type", "application/json") // Forçando o header
                     .bodyValue(requestBody)
                     .retrieve()
                     .bodyToMono(Map.class)
                     .block();
 
             if (response != null && response.containsKey("candidates")) {
-                java.util.List<Map<String, Object>> candidates = (java.util.List<Map<String, Object>>) response.get("candidates");
+                List<Map<String, Object>> candidates = (List<Map<String, Object>>) response.get("candidates");
                 if (!candidates.isEmpty()) {
-                    Map<String, Object> content = (Map<String, Object>) candidates.get(0).get("content");
-                    java.util.List<Map<String, Object>> parts = (java.util.List<Map<String, Object>>) content.get("parts");
-                    if (parts != null && !parts.isEmpty()) {
-                        return parts.get(0).get("text").toString().trim();
-                    }
+                    Map<String, Object> candidate = candidates.get(0);
+                    Map<String, Object> content = (Map<String, Object>) candidate.get("content");
+                    List<Map<String, Object>> parts = (List<Map<String, Object>>) content.get("parts");
+                    return parts.get(0).get("text").toString().trim();
                 }
             }
         } catch (Exception e) {
-            return "1. Horário: Evite picos de sol. 2. EPI: Protetor solar e óculos. 3. Vestimenta: Roupas leves e claras.";
+            // Se der erro, vamos printar a CAUSA real além da mensagem
+            System.err.println("ERRO DETALHADO: " + e.getMessage());
+            if (e instanceof org.springframework.web.reactive.function.client.WebClientResponseException) {
+                String errorBody = ((org.springframework.web.reactive.function.client.WebClientResponseException) e).getResponseBodyAsString();
+                System.err.println("CORPO DO ERRO DO GOOGLE: " + errorBody);
+            }
+            return "1. Horário: Evite picos de sol. 2. EPI: Protetor solar. 3. Vestimenta: Roupas leves.";
         }
-
-        return "1. Horário: Evite picos de sol. 2. EPI: Protetor solar e óculos. 3. Vestimenta: Roupas leves e claras.";
+        return "1. Horário: Evite picos de sol. 2. EPI: Protetor solar. 3. Vestimenta: Roupas leves.";
     }
 }

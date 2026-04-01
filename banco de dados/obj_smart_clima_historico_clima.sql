@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `previsao_tempo` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `previsao_tempo`;
+CREATE DATABASE  IF NOT EXISTS `obj_smart_clima` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `obj_smart_clima`;
 -- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
 --
--- Host: localhost    Database: previsao_tempo
+-- Host: localhost    Database: obj_smart_clima
 -- ------------------------------------------------------
 -- Server version	8.0.42
 
@@ -18,36 +18,24 @@ USE `previsao_tempo`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `clima_atual`
+-- Table structure for table `historico_clima`
 --
 
-DROP TABLE IF EXISTS `clima_atual`;
+DROP TABLE IF EXISTS `historico_clima`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `clima_atual` (
+CREATE TABLE `historico_clima` (
   `id` char(36) NOT NULL,
   `cidade_id` char(36) DEFAULT NULL,
-  `temperatura` decimal(5,2) DEFAULT NULL,
-  `sensacao_termica` decimal(5,2) DEFAULT NULL,
-  `umidade` int DEFAULT NULL,
-  `pressao` int DEFAULT NULL,
-  `velocidade_vento` decimal(5,2) DEFAULT NULL,
-  `condicao_tempo` varchar(100) DEFAULT NULL,
-  `coletado_at` timestamp NOT NULL,
+  `temperatura` double DEFAULT NULL,
+  `umidade` double DEFAULT NULL,
+  `precipitacao` double DEFAULT NULL,
+  `registrado_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `cidade_id` (`cidade_id`),
-  CONSTRAINT `clima_atual_ibfk_1` FOREIGN KEY (`cidade_id`) REFERENCES `cidades` (`id`) ON DELETE CASCADE
+  CONSTRAINT `historico_clima_ibfk_1` FOREIGN KEY (`cidade_id`) REFERENCES `cidades` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `clima_atual`
---
-
-LOCK TABLES `clima_atual` WRITE;
-/*!40000 ALTER TABLE `clima_atual` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clima_atual` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -58,4 +46,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-19 14:44:40
+-- Dump completed on 2026-04-01 11:00:14

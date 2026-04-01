@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `previsao_tempo` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `previsao_tempo`;
+CREATE DATABASE  IF NOT EXISTS `obj_smart_clima` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `obj_smart_clima`;
 -- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
 --
--- Host: localhost    Database: previsao_tempo
+-- Host: localhost    Database: obj_smart_clima
 -- ------------------------------------------------------
 -- Server version	8.0.42
 
@@ -18,11 +18,11 @@ USE `previsao_tempo`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping events for database 'previsao_tempo'
+-- Dumping events for database 'obj_smart_clima'
 --
 
 --
--- Dumping routines for database 'previsao_tempo'
+-- Dumping routines for database 'obj_smart_clima'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -34,4 +34,4 @@ USE `previsao_tempo`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-19 14:44:40
+-- Dump completed on 2026-04-01 11:00:16

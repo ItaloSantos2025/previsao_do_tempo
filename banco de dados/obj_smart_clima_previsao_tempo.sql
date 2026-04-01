@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `previsao_tempo` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `previsao_tempo`;
+CREATE DATABASE  IF NOT EXISTS `obj_smart_clima` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `obj_smart_clima`;
 -- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
 --
--- Host: localhost    Database: previsao_tempo
+-- Host: localhost    Database: obj_smart_clima
 -- ------------------------------------------------------
 -- Server version	8.0.42
 
@@ -18,31 +18,26 @@ USE `previsao_tempo`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cidades`
+-- Table structure for table `previsao_tempo`
 --
 
-DROP TABLE IF EXISTS `cidades`;
+DROP TABLE IF EXISTS `previsao_tempo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cidades` (
+CREATE TABLE `previsao_tempo` (
   `id` char(36) NOT NULL,
-  `nome` varchar(120) NOT NULL,
-  `estado` varchar(120) DEFAULT NULL,
-  `pais` varchar(120) NOT NULL,
-  `latitude` decimal(9,6) NOT NULL,
-  `longitude` decimal(9,6) NOT NULL,
-  PRIMARY KEY (`id`)
+  `cidade_id` char(36) DEFAULT NULL,
+  `data_hora_previsao` datetime NOT NULL,
+  `temperatura` double DEFAULT NULL,
+  `umidade` double DEFAULT NULL,
+  `velocidade_vento` double DEFAULT NULL,
+  `probabilidade_chuva` double DEFAULT NULL,
+  `icone` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cidade_id` (`cidade_id`),
+  CONSTRAINT `previsao_tempo_ibfk_1` FOREIGN KEY (`cidade_id`) REFERENCES `cidades` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cidades`
---
-
-LOCK TABLES `cidades` WRITE;
-/*!40000 ALTER TABLE `cidades` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cidades` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -53,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-19 14:44:39
+-- Dump completed on 2026-04-01 11:00:15

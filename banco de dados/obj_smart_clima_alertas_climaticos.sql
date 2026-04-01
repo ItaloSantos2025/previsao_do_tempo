@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `previsao_tempo` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `previsao_tempo`;
+CREATE DATABASE  IF NOT EXISTS `obj_smart_clima` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `obj_smart_clima`;
 -- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
 --
--- Host: localhost    Database: previsao_tempo
+-- Host: localhost    Database: obj_smart_clima
 -- ------------------------------------------------------
 -- Server version	8.0.42
 
@@ -18,33 +18,25 @@ USE `previsao_tempo`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cidades_favoritas_usuario`
+-- Table structure for table `alertas_climaticos`
 --
 
-DROP TABLE IF EXISTS `cidades_favoritas_usuario`;
+DROP TABLE IF EXISTS `alertas_climaticos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cidades_favoritas_usuario` (
+CREATE TABLE `alertas_climaticos` (
   `id` char(36) NOT NULL,
-  `usuario_id` char(36) DEFAULT NULL,
   `cidade_id` char(36) DEFAULT NULL,
-  `criado_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `tipo_alerta` varchar(255) DEFAULT NULL,
+  `descricao` varchar(255) DEFAULT NULL,
+  `severidade` varchar(255) DEFAULT NULL,
+  `inicio_em` timestamp NULL DEFAULT NULL,
+  `fim_em` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `usuario_id` (`usuario_id`),
   KEY `cidade_id` (`cidade_id`),
-  CONSTRAINT `cidades_favoritas_usuario_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `cidades_favoritas_usuario_ibfk_2` FOREIGN KEY (`cidade_id`) REFERENCES `cidades` (`id`) ON DELETE CASCADE
+  CONSTRAINT `alertas_climaticos_ibfk_1` FOREIGN KEY (`cidade_id`) REFERENCES `cidades` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cidades_favoritas_usuario`
---
-
-LOCK TABLES `cidades_favoritas_usuario` WRITE;
-/*!40000 ALTER TABLE `cidades_favoritas_usuario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cidades_favoritas_usuario` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -55,4 +47,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-19 14:44:38
+-- Dump completed on 2026-04-01 11:00:15

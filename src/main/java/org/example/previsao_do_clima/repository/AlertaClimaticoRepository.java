@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AlertaClimaticoRepository extends JpaRepository<AlertaClimatico, String> {
-    void deleteByCidadeId(String cidadeId); // Adicione isso
+    void deleteByCidadeId(String cidadeId);
 }

@@ -19,14 +19,11 @@ public class AssistenteIAService {
     }
 
     public String gerarRecomendacaoSeguranca(Double temp, Double umidade, String condicao) {
-        // Prompt sem caracteres especiais para teste
 
         String promptText = "Dados: " + temp + " graus, " + umidade + "% umidade. Gere 3 dicas curtas de seguranca do trabalho.";
 
-        // Usando o modelo que seu terminal listou como o primeiro da lista (Estável 2.5)
         String geminiUrl = "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=" + geminiApiKey;
 
-        // JSON manual para não ter erro de hierarquia
         Map<String, Object> requestBody = Map.of(
                 "contents", List.of(
                         Map.of("parts", List.of(
@@ -54,7 +51,6 @@ public class AssistenteIAService {
                 }
             }
         } catch (Exception e) {
-            // Se der erro, vamos printar a CAUSA real além da mensagem
             System.err.println("ERRO DETALHADO: " + e.getMessage());
             if (e instanceof org.springframework.web.reactive.function.client.WebClientResponseException) {
                 String errorBody = ((org.springframework.web.reactive.function.client.WebClientResponseException) e).getResponseBodyAsString();

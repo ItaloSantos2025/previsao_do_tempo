@@ -81,7 +81,6 @@ public class ClimaController {
         }
     }
 
-    // --- Métodos Auxiliares (Mantidos Iguais) ---
 
     private String identificarCidade(String cidade, HttpServletRequest request) {
         if (cidade != null && !cidade.trim().isEmpty()) return cidade;

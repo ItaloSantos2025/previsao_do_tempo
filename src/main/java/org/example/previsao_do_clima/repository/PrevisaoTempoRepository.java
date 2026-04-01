@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PrevisaoTempoRepository extends JpaRepository<PrevisaoTempo, String> {
-    void deleteByCidadeId(String cidadeId); // Adicione isso
+    void deleteByCidadeId(String cidadeId);
 }
